@@ -18,14 +18,14 @@ namespace sURL.Models
         public UrlRecord()
         {
             this.Id = 0;
-            this.URL = string.Empty;
+            this.Url = string.Empty;
             this.AccessCount = 0;
         }
 
         public UrlRecord(uint id, string url, uint accsessCount)
         {
             this.Id = id;
-            this.URL = url;
+            this.Url = url;
             this.AccessCount = accsessCount;
         }
 
