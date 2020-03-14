@@ -520,3 +520,9 @@ MigrationBackup/
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 
 # End of https://www.gitignore.io/api/csharp,visualstudio,visualstudiocode
+
+
+###################################################################################
+# Project ignore files.                                                           #
+###################################################################################
+*/SaltData
