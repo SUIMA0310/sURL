@@ -1,14 +1,25 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
+using sURL.Models;
+using sURL.Services;
 
 namespace sURL.Controllers
 {
     [ApiController]
     public class RedirectController : Controller
     {
-        public RedirectController()
+        private UrlRecordContext _UrlRecordContext = null;
+        private ICodingService _CodingService = null;
+
+        public RedirectController(
+            UrlRecordContext urlRecordContext,
+            ICodingService codingService)
         {
+            this._UrlRecordContext = urlRecordContext;
+            this._CodingService = codingService;
         }
 
         [HttpGet("~/{hashid}")]
@@ -16,7 +27,18 @@ namespace sURL.Controllers
         {
             await Task.Yield();
 
-            return RedirectPermanent("https://google.co.jp/");
+            var id = this._CodingService.Decode(hashid);
+
+            var urlRecord = this._UrlRecordContext
+                .Urls
+                .Where(x => x.Id == id)
+                .SingleOrDefault();
+
+            urlRecord.AccessCountUp();
+
+            await this._UrlRecordContext.SaveChangesAsync();
+
+            return RedirectPermanent(urlRecord.Url);
         }
     }
 }

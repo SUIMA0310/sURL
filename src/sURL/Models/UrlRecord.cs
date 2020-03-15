@@ -13,6 +13,8 @@ namespace sURL.Models
         // リダイレクトした回数をカウントする
         public virtual uint AccessCount {get; set;}
 
+        public virtual DateTime CreateTime {get; set;}
+
         #region コンストラクタ
 
         public UrlRecord()
@@ -20,13 +22,19 @@ namespace sURL.Models
             this.Id = 0;
             this.Url = string.Empty;
             this.AccessCount = 0;
+            this.CreateTime = DateTime.Now;
         }
 
-        public UrlRecord(uint id, string url, uint accsessCount)
+        public UrlRecord(
+            uint id, 
+            string url, 
+            uint accsessCount, 
+            DateTime createTime)
         {
             this.Id = id;
             this.Url = url;
             this.AccessCount = accsessCount;
+            this.CreateTime = createTime;
         }
 
         #endregion
